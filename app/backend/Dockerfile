@@ -4,7 +4,7 @@
 
 # Copiar os package.json e package-lock.json para o container
 
-# Instalar as dependências Node
+# Instalar as dependências Node (só para commitar o arquivo package-lock.json)
 
 # Copiar o restante dos arquivos da aplicação para o container
 
