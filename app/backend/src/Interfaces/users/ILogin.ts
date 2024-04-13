@@ -12,3 +12,7 @@ export interface IIUser extends Identifiable, ILogin {
 }
 
 export type IUserResponse = Omit<IUser, 'password'>;
+
+export interface IRole {
+  role: string;
+}
