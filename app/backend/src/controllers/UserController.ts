@@ -4,11 +4,12 @@ import mapStatusHttp from '../utils/mapStatusHttp';
 
 export default class UserController {
   constructor(
-    private userService: UserService = new UserService(),
+    private userService = new UserService(),
   ) {}
 
-  public login = async (req: Request, res: Response) => {
+  public async login(req: Request, res: Response): Promise<Response> {
     const serviceResponse = await this.userService.login(req.body);
-    res.status(mapStatusHttp(serviceResponse.status)).json(serviceResponse.data);
-  };
+    console.log('Service Response:', serviceResponse);
+    return res.status(mapStatusHttp(serviceResponse.status)).json(serviceResponse.data);
+  }
 }

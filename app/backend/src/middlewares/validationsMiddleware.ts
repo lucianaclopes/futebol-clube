@@ -4,11 +4,14 @@ class ValidationsMiddleware {
   static validateLogin(req: Request, res: Response, next: NextFunction): Response | void {
     const { email, password } = req.body;
 
+    console.log('Email:', email);
+    console.log('Password:', password);
+
     if (!email || !password) {
       return res.status(400).json({ message: 'All fields must be filled' });
     }
 
-    const emailRegex = /^[^\s@]+@(?!.*\.com$)[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (!emailRegex.test(email)) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
