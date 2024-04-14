@@ -28,30 +28,27 @@ SequelizeMatch.init({
   homeTeamId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'teams',
-      key: 'id',
-    },
+    field: 'home_team_id',
   },
   homeTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'home_team_goals',
   },
   awayTeamId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'teams',
-      key: 'id',
-    },
+    field: 'away_team_id',
   },
   awayTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'away_team_goals',
   },
   inProgress: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
+    field: 'in_progress',
   },
 }, {
   sequelize: db,
@@ -60,9 +57,12 @@ SequelizeMatch.init({
   underscored: true,
 });
 
-// fazer a associação entre as tabelas matches e teams
+// fazer as associações entre as tabelas matches e teams
 
 SequelizeMatch.belongsTo(SequelizeTeam, { foreignKey: 'homeTeamId', as: 'homeTeam' });
 SequelizeMatch.belongsTo(SequelizeTeam, { foreignKey: 'awayTeamId', as: 'awayTeam' });
+
+SequelizeTeam.hasMany(SequelizeMatch, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+SequelizeTeam.hasMany(SequelizeMatch, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
 export default SequelizeMatch;
