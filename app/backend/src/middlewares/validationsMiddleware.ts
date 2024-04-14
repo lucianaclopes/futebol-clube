@@ -21,18 +21,19 @@ class ValidationsMiddleware {
     return next();
   }
 
-  static async validateToken(req: Request, res: Response, next: NextFunction)
-    : Promise<Response | void> {
+  static async validateToken(req: Request, res: Response, next: NextFunction):
+  Promise<Response | void> {
     const token = req.headers.authorization;
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
     }
-    const tokenSplittedBearer = token.split(' ')[1];
+    const tokenSplittedBearer = token?.split(' ')[1];
     const validToken = await JWT.verify(tokenSplittedBearer);
-    req.body = validToken;
+
     if (validToken === 'Token must be a valid token') {
       return res.status(401).json({ message: validToken });
     }
+    req.body = validToken;
     next();
   }
 }
