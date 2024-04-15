@@ -25,4 +25,10 @@ export default class MatchService {
     await this.matchModel.finishMatch(id);
     return { status: 'SUCCESS', data: { message: 'Finished' } };
   }
+
+  public async updateMatchInProgress(id: number, data:
+  { homeTeamGoals: number, awayTeamGoals: number }): Promise<ServiceResponse<ServiceMessage>> {
+    await this.matchModel.updateMatchInProgress(id, data);
+    return { status: 'SUCCESS', data: { message: 'Updated' } };
+  }
 }

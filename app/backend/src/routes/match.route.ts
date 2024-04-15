@@ -12,4 +12,10 @@ router.patch(
   (req: Request, res: Response) => matchController.finishMatch(req, res),
 );
 
+router.patch(
+  '/:id',
+  ValidationsMiddleware.validateToken,
+  (req: Request, res: Response) => matchController.updateMatchInProgress(req, res),
+);
+
 export default router;

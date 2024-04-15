@@ -30,4 +30,4 @@ const allMatches = [match1, match2, match3];
 const matchesInProgress = [match3];
 const matchesDone = [match1, match2];
 
-export { allMatches, match1, match2, matchesDone, matchesInProgress};
+export { allMatches, match1, match2, match3, matchesDone, matchesInProgress};
