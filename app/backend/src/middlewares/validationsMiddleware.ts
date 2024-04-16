@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import JWT from '../utils/jwtUtil';
+import checkTeamsExist from '../utils/checkTeamsExist';
 
 class ValidationsMiddleware {
   static validateLogin(req: Request, res: Response, next: NextFunction): Response | void {
@@ -27,13 +28,32 @@ class ValidationsMiddleware {
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
     }
-    const tokenSplittedBearer = token?.split(' ')[1];
+    const tokenSplittedBearer = token.split(' ')[1];
     const validToken = await JWT.verify(tokenSplittedBearer);
 
     if (validToken === 'Token must be a valid token') {
       return res.status(401).json({ message: validToken });
     }
     req.body = validToken;
+    next();
+  }
+
+  static async validateMatch(req: Request, res: Response, next: NextFunction)
+    : Promise<Response | void> {
+    const { homeTeamId, awayTeamId } = req.body;
+
+    if (homeTeamId === awayTeamId) {
+      return res.status(422)
+        .json({ message: 'It is not possible to create a match with two equal teams' });
+    }
+
+    const homeTeamExists = await checkTeamsExist(homeTeamId);
+    const awayTeamExists = await checkTeamsExist(awayTeamId);
+
+    if (!homeTeamExists || !awayTeamExists) {
+      return res.status(404).json({ message: 'There is no team with such id!' });
+    }
+
     next();
   }
 }

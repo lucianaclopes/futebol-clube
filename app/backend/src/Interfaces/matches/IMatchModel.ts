@@ -7,4 +7,5 @@ export interface IMatchModel {
   finishMatch(id: number): Promise<void>;
   updateMatchInProgress(id:IMatch['id'],
     data: { homeTeamGoals: number, awayTeamGoals: number }): Promise<IMatch | null>;
+  createMatch(data: Partial<IMatch>): Promise<IMatch>;
 }

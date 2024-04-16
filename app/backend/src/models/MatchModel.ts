@@ -2,6 +2,7 @@ import SequelizeMatch from '../database/models/SequelizeMatch';
 import SequelizeTeam from '../database/models/SequelizeTeam';
 import IMatch from '../Interfaces/matches/IMatch';
 import { IMatchModel } from '../Interfaces/matches/IMatchModel';
+import { NewEntity } from '../Interfaces/index';
 
 export default class MatchModel implements IMatchModel {
   private model = SequelizeMatch;
@@ -53,5 +54,12 @@ export default class MatchModel implements IMatchModel {
     if (affectedRows === 0) return null;
     const updatedMatch = await this.model.findByPk(id);
     return updatedMatch;
+  }
+
+  async createMatch(data: NewEntity<IMatch>): Promise<IMatch> {
+    const newData = { ...data, inProgress: true };
+    const newMatch = await this.model.create(newData);
+
+    return newMatch;
   }
 }
