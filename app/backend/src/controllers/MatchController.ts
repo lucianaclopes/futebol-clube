@@ -20,22 +20,24 @@ export default class MatchController {
 
   public async finishMatch(req: Request, res: Response) {
     const { id } = req.params;
-    const serviceResponse = await this.matchService.finishMatch(Number(id));
+    const { decodedToken } = req.body;
+    const serviceResponse = await this.matchService.finishMatch(Number(id), decodedToken);
     res.status(mapStatusHttp(serviceResponse.status)).json(serviceResponse.data);
   }
 
   public async updateMatchInProgress(req: Request, res: Response) {
     const { id } = req.params;
-    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const { homeTeamGoals, awayTeamGoals, decodedToken } = req.body;
     const serviceResponse = await this.matchService.updateMatchInProgress(Number(id), {
       homeTeamGoals,
       awayTeamGoals,
-    });
+    }, decodedToken);
     res.status(mapStatusHttp(serviceResponse.status)).json(serviceResponse.data);
   }
 
   public async createMatch(req: Request, res: Response) {
-    const serviceResponse = await this.matchService.createMatch(req.body);
+    const { decodedToken } = req.body;
+    const serviceResponse = await this.matchService.createMatch(req.body, decodedToken);
     res.status(mapStatusHttp(serviceResponse.status)).json(serviceResponse.data);
   }
 }

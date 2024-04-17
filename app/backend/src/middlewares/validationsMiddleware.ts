@@ -28,13 +28,13 @@ class ValidationsMiddleware {
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
     }
-    const tokenSplittedBearer = token.split(' ')[1];
-    const validToken = await JWT.verify(tokenSplittedBearer);
+    const tokenSplittedBearer = token?.split(' ')[1];
+    const validToken = await JWT.verify(tokenSplittedBearer as string);
 
     if (validToken === 'Token must be a valid token') {
       return res.status(401).json({ message: validToken });
     }
-    req.body = validToken;
+    req.body.decodedToken = validToken;
     next();
   }
 
@@ -47,14 +47,13 @@ class ValidationsMiddleware {
         .json({ message: 'It is not possible to create a match with two equal teams' });
     }
 
-    const homeTeamExists = await checkTeamsExist(homeTeamId);
-    const awayTeamExists = await checkTeamsExist(awayTeamId);
+    const homeTeamExists = await checkTeamsExist(Number(homeTeamId));
+    const awayTeamExists = await checkTeamsExist(Number(awayTeamId));
 
     if (!homeTeamExists || !awayTeamExists) {
       return res.status(404).json({ message: 'There is no team with such id!' });
     }
-
-    next();
+    return next();
   }
 }
 

@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcryptjs';
+import { JwtPayload } from 'jsonwebtoken';
 import UserModel from '../models/UserModel';
 import { IUserModel } from '../Interfaces/users/IUserModel';
 import JWT from '../utils/jwtUtil';
@@ -27,8 +28,10 @@ export default class UserService {
     return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
   }
 
-  public async findByRole(data:ILogin):Promise<ServiceResponse<IRole>> {
-    const user = await this.userModel.findByEmail(data.email);
+  public async findByRole(decodedToken:string):Promise<ServiceResponse<IRole>> {
+    const validateToken = this.jwtService.verify(decodedToken) as JwtPayload;
+    const user = await this.userModel.findByEmail(validateToken.email);
+
     const { role } = user as IRole;
     if (!user || user === null) {
       return { status: 'UNAUTHORIZED', data: { message: 'user not found' } };

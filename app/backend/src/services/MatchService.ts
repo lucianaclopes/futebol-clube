@@ -22,19 +22,25 @@ export default class MatchService {
     return { status: 'SUCCESS', data: matchesDone };
   }
 
-  public async finishMatch(id: number): Promise<ServiceResponse<ServiceMessage>> {
-    await this.matchModel.finishMatch(id);
+  public async finishMatch(id: number, decodedToken: string)
+    : Promise<ServiceResponse<ServiceMessage>> {
+    await this.matchModel.finishMatch(id, decodedToken);
     return { status: 'SUCCESS', data: { message: 'Finished' } };
   }
 
-  public async updateMatchInProgress(id: number, data:
-  { homeTeamGoals: number, awayTeamGoals: number }): Promise<ServiceResponse<ServiceMessage>> {
-    await this.matchModel.updateMatchInProgress(id, data);
+  public async updateMatchInProgress(
+    id: number,
+    data: { homeTeamGoals: number, awayTeamGoals: number },
+    decodedToken: string,
+  )
+    : Promise<ServiceResponse<ServiceMessage>> {
+    await this.matchModel.updateMatchInProgress(id, data, decodedToken);
     return { status: 'SUCCESS', data: { message: 'Updated' } };
   }
 
-  public async createMatch(data: NewEntity<IMatch>): Promise<ServiceResponse<IMatch>> {
-    const newMatch = await this.matchModel.createMatch(data);
+  public async createMatch(data: NewEntity<IMatch>, decodedToken: string)
+    : Promise<ServiceResponse<IMatch>> {
+    const newMatch = await this.matchModel.createMatch(data, decodedToken);
     return { status: 'SUCCESS', data: newMatch };
   }
 }
