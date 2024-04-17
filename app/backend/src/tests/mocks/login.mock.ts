@@ -53,7 +53,8 @@ const userWithWrongPassword = {
 }
 const adminRegistered = {...validAdmin, password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'};
 const validLoginBody = { email: 'admin@admin.com', password: 'secret_admin' };
+const validTokenWithBearer = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTcxMzMxNTg4NiwiZXhwIjoxNzEzOTIwNjg2fQ.V_AJ9GxHXYJ1VOeTPgUdKBXebEaMojyrXW2jJd86rlQ"
 
 export { validAdmin, invalidAdmin, validUser, invalidUser, adminWithoutEmail, 
   adminWithoutPassword, userNotFound, incorrectPassword, adminRegistered, validLoginBody, 
-  userWithWrongPassword};
+  userWithWrongPassword, validTokenWithBearer};

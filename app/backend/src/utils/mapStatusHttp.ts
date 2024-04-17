@@ -2,6 +2,8 @@ export default function mapStatusHttp(status: string): number {
   switch (status) {
     case 'SUCCESS':
       return 200;
+    case 'CREATED':
+      return 201;
     case 'INVALID_DATA':
       return 400;
     case 'NOT_FOUND':

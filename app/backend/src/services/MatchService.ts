@@ -41,6 +41,6 @@ export default class MatchService {
   public async createMatch(data: NewEntity<IMatch>, decodedToken: string)
     : Promise<ServiceResponse<IMatch>> {
     const newMatch = await this.matchModel.createMatch(data, decodedToken);
-    return { status: 'SUCCESS', data: newMatch };
+    return { status: 'CREATED', data: newMatch };
   }
 }

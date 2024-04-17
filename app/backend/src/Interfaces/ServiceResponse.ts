@@ -7,7 +7,7 @@ export type ServiceResponseError = {
 };
 
 export type ServiceResponseSuccess<T> = {
-  status: 'SUCCESS',
+  status: 'SUCCESS' | 'CREATED',
   data: T,
 };
 
