@@ -10,4 +10,10 @@ export default class LeaderboardService {
 
     return { status: 'SUCCESS', data: homeLeaderboard };
   }
+
+  public async getAwayTeamsInfoPerformance(): Promise<ServiceResponse<ILeaderboard[]>> {
+    const awayLeaderboard = await this.leaderboardModel.getAwayTeamsPerformance();
+
+    return { status: 'SUCCESS', data: awayLeaderboard };
+  }
 }

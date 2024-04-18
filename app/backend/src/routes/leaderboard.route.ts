@@ -7,4 +7,7 @@ const router = Router();
 router.get('/home', (req: Request, res: Response) => leaderboarderController
   .getAllTeamsInfoPerformance(req, res));
 
+router.get('/away', (req: Request, res: Response) => leaderboarderController
+  .getAwayTeamsInfoPerformance(req, res));
+
 export default router;

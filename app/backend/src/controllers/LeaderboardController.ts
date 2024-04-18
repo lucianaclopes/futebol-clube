@@ -9,4 +9,9 @@ export default class LeaderboardController {
     const serviceResponse = await this.leaderboardService.getAllTeamsInfoPerformance();
     res.status(mapStatusHttp(serviceResponse.status)).json(serviceResponse.data);
   };
+
+  public getAwayTeamsInfoPerformance = async (req: Request, res: Response) => {
+    const serviceResponse = await this.leaderboardService.getAwayTeamsInfoPerformance();
+    res.status(mapStatusHttp(serviceResponse.status)).json(serviceResponse.data);
+  };
 }
