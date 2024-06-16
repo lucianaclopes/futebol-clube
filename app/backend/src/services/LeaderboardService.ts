@@ -4,7 +4,7 @@ import { ServiceResponse } from '../Interfaces/ServiceResponse';
 
 export default class LeaderboardService {
   private leaderboardModel = new LeaderboardModel();
-  
+
   public async getAllTeamsInfoPerformance(): Promise<ServiceResponse<ILeaderboard[]>> {
     const homeLeaderboard = await this.leaderboardModel.getHomeTeamsPerformance();
 
@@ -16,5 +16,4 @@ export default class LeaderboardService {
 
     return { status: 'SUCCESS', data: awayLeaderboard };
   }
-
 }
