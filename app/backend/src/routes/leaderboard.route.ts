@@ -10,6 +10,5 @@ router.get('/home', (req: Request, res: Response) => leaderboarderController
 router.get('/away', (req: Request, res: Response) => leaderboarderController
   .getAwayTeamsInfoPerformance(req, res));
 
-router.get('/', (req: Request, res: Response) => leaderboarderController.getLeaderboard(req, res));
 
 export default router;
